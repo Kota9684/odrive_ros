@@ -23,6 +23,21 @@ git clone clone URL
 cd odrive_ros
 pip install -e.
 ```
+3. 起動
+```
+cd ~/catkin_ws
+catkin_make #catkinパッケージをビルド
+roscore 
+
+#別のターミナルを開く
+rosrun odrive_ros listener.py
+#起動と同時にODriveの初期設定をする．(1分ぐらい待つ)
+#太郎準備完了ってでたらOK
+
+#別のターミナルを開く
+rosrun odrive_ros talker.py
+#ここで右回転か左回転かの指示を出す
+```
 
 
 # reference
