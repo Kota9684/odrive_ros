@@ -8,7 +8,21 @@
 3. [odrive 0.4.12](https://pypi.org/project/odrive/)
 
 # 使い方
-1. ROSワークスペースの作成
+1. [ROSワークスペースの作成](http://wiki.ros.org/ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
+```
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+catkin_init_workspace
+cd ~/catkin_ws/
+catkin_make
+```
+2. [odrive_rosリポジトリのクローン](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E5%9F%BA%E6%9C%AC-Git-%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%8F%96%E5%BE%97)
+```
+cd ~/catkin_ws/src
+git clone clone URL
+cd odrive_ros
+pip install -e.
+```
 
 
 # reference
