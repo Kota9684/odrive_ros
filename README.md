@@ -39,7 +39,9 @@ rosrun odrive_ros talker.py
 #ここで右回転か左回転かの指示を出す
 ```
 
-
-# reference
-
+# 参考
+- [ODrive Documentation](https://docs.odriverobotics.com/)
+- [neomanic/odrive_ros](https://github.com/neomanic/odrive_ros)
+- [Raspberry Pi Mouse Simulator's Tutorial](https://raspimouse-sim-tutorial.gitbook.io/project/)
+- [ROS Melodic Moreniaを使ってPub/Subでサーボモータを動かす](https://tkrel.com/9301)
 
