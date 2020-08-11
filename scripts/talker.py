@@ -11,21 +11,15 @@ def talker():
     #ループの周期．
     rate = rospy.Rate(10) 
     
-    print("0: right, 1:left")
+    print("指令値を入力してください||制御方法の切り替えは，vel:速度制御 pos:位置制御")
+    print("現在の制御モードは速度制御")
 
     while not rospy.is_shutdown():
         #標準入力からkeyを入力
-        key=input()
-        msg =str()
+        msg = str()
+        msg = input()
 
-        #keyによって指令値を決める
-        if key =='0':
-            msg = '3000'
-    
-        elif key =='1':
-            msg = '-3000'
-
-        print("0: right, 1:left")
+        print("指令値を入力してください||制御方法の切り替えは，vel:速度制御 pos:位置制御")
         #指令値を記録する
         #rospy.loginfo(msg)
         #指令値をパブリッシュする
