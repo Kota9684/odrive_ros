@@ -1,6 +1,8 @@
 # odrive_ros
 [ODrive motor](https://odriverobotics.com/)を動かすROSパッケージ．  
-位置制御と速度制御の切り替え，指令値の送信． 名前は太郎．
+位置制御と速度制御の切り替え，指令値の送信． 位置と速度のリアルタイムプロット．
+
+[![](https://img.youtube.com/vi/mqwIHSdJp70/0.jpg)](https://www.youtube.com/watch?v=mqwIHSdJp70)
 
 # 環境
 1. [Ubuntu 16.04 LTS](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/Ja#Ubuntu_16.04.2BMG4wwDCmMPMw7TD8MMk-)
