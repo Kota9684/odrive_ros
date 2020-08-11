@@ -10,6 +10,8 @@ from odrive.enums import *
 import time
 import matplotlib.pyplot as plt
 
+import threading
+
 #起動しているodriveを見つけて太郎と名付ける
 taro=odrive.find_any()
 print("太郎発見・セットアップします") 
@@ -27,11 +29,8 @@ time.sleep(5)
 taro.axis1.controller.config.pos_gain = 10.0
 time.sleep(3)
 
-#推定位置記録
-est = taro.axis1.encoder.pos_estimate
-plt.figure()
-plt.plot(time.time(),est)
-plt.draw
+#制御モードの記録 0が速度，1が位置
+mode = 0
 
 print("太郎準備完了")
 print("現在の制御モードは速度制御")
@@ -41,8 +40,7 @@ def callback(data):
     #subscrineしたデータの中身　data.data
     rospy.loginfo(rospy.get_caller_id() + 'データきたー %s', data.data)
 
-    #制御モードの記録 0が速度，1が位置
-    mode = 0
+    global mode
 
     #速度制御と位置制御切り替え
     if data.data == "vel":
@@ -53,14 +51,18 @@ def callback(data):
         taro.axis1.controller.config.control_mode=CTRL_MODE_POSITION_CONTROL
         mode = 1
         print("位置制御に切り替わりました")
+    elif data.data == 'plot':
+        t1 = threading.Thread(target=plot, name='hoge', args=('hogehoge',))
+        t1.setDaemon(True)
+        t1.start()
+    elif data.data == 'stop':
+        taro.axis1.requested_state = AXIS_STATE_IDLE
+ 
     #太郎の制御
     elif mode == 0:
         taro.axis1.controller.vel_setpoint=int(data.data)
     elif mode == 1:
         taro.axis1.controller.pos_setpoint=int(data.data)
-    
-    #推定値の更新
-    est = taro.axis1.encoder.pos_estimate
 
 def listener():
     #おまじない　ノード名を宣言
@@ -70,5 +72,23 @@ def listener():
     #コールバック関数を繰り返す．
     rospy.spin()
 
+def plot(args):
+    hoge = args
+    fig = plt.figure()
+    pos = list([0])
+    vel = list([0])
+    ax1 = fig.add_subplot(2, 1, 1)
+    ax2 = fig.add_subplot(2, 1, 2)
+    ax1.set_title('position')
+    ax2.set_title('velocity')
+    while True:
+        ax1.cla()
+        ax2.cla()
+        pos.append((taro.axis1.encoder.pos_estimate) % 8192 - 4096)
+        vel.append(taro.axis1.encoder.vel_estimate)
+        ax1.plot(pos[-200:], color='blue')
+        ax2.plot(vel[-200:], color='red')
+        plt.pause(0.05)
+ 
 if __name__ == '__main__':
     listener()
