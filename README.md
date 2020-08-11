@@ -40,6 +40,11 @@ rosrun odrive_ros listener.py
 rosrun odrive_ros talker.py
 #ここで指令値および，制御方法の切り替えを行う
 ```
+4. コマンド
+- vel：速度制御に切替
+- pos：位置制御に切替
+- plot：位置と速度をプロット
+- stop：停止
 
 # 参考
 - [ODrive Documentation](https://docs.odriverobotics.com/)
