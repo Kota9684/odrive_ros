@@ -1,6 +1,6 @@
 # odrive_ros
 [ODrive motor](https://odriverobotics.com/)を動かすROSパッケージ．  
-現状はひとまず，右左の入力でそれぞれの方向に回転します．
+位置制御と速度制御の切り替え，指令値の送信． 
 
 # 環境
 1. [Ubuntu 16.04 LTS](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/Ja#Ubuntu_16.04.2BMG4wwDCmMPMw7TD8MMk-)
@@ -36,7 +36,7 @@ rosrun odrive_ros listener.py
 
 #別のターミナルを開く
 rosrun odrive_ros talker.py
-#ここで右回転か左回転かの指示を出す
+#ここで指令値および，制御方法の切り替えを行う
 ```
 
 # 参考
