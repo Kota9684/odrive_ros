@@ -4,9 +4,9 @@
 [![](https://img.youtube.com/vi/7yh7Y6mzf2o/0.jpg)](https://www.youtube.com/watch?v=7yh7Y6mzf2o)
 
 # 環境
-1. [Ubuntu 16.04 LTS](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/Ja#Ubuntu_16.04.2BMG4wwDCmMPMw7TD8MMk-)
-2. [ROS kinetic](http://wiki.ros.org/ja/kinetic/Installation/Ubuntu)
-3. [odrive 0.4.12](https://pypi.org/project/odrive/)
+- [Ubuntu 16.04 LTS](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/Ja#Ubuntu_16.04.2BMG4wwDCmMPMw7TD8MMk-)
+- [ROS kinetic](http://wiki.ros.org/ja/kinetic/Installation/Ubuntu)
+- [odrive 0.4.12](https://pypi.org/project/odrive/)
 
 # 使い方
 1. [ROSワークスペースの作成](http://wiki.ros.org/ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
