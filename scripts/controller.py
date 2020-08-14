@@ -2,6 +2,7 @@
 # coding: utf-8
 import rospy
 from std_msgs.msg import String
+from odrive_ros.msg import Status
 #odriveのパッケージ
 import odrive
 #odriveの初期値などが入っているパッケージ
@@ -9,8 +10,8 @@ from odrive.enums import *
 #その他の利用パッケージ
 import time
 import matplotlib.pyplot as plt
+import numpy as np
 
-import threading
 
 #起動しているodriveを見つけて太郎と名付ける
 taro=odrive.find_any()
@@ -50,10 +51,6 @@ def callback(data):
         taro.axis1.controller.config.control_mode=CTRL_MODE_POSITION_CONTROL
         mode = 1
         print("位置制御に切り替わりました")
-    elif data.data == 'plot':
-        t1 = threading.Thread(target=plot, name='hoge', args=('hogehoge',))
-        t1.setDaemon(True)
-        t1.start()
     elif data.data == 'stop':
         taro.axis1.requested_state = AXIS_STATE_IDLE
  
@@ -63,31 +60,29 @@ def callback(data):
     elif mode == 1:
         taro.axis1.controller.pos_setpoint=int(data.data)
 
-def listener():
-    #おまじない　ノード名を宣言
-    rospy.init_node('listener', anonymous=True)
-    #Subscriberを作成．トピックを読み込む．
-    rospy.Subscriber('chatter', String, callback)
-    #コールバック関数を繰り返す．
-    rospy.spin()
+        
 
-def plot(args):
-    hoge = args
-    fig = plt.figure()
-    pos = list([0])
-    vel = list([0])
-    ax1 = fig.add_subplot(2, 1, 1)
-    ax2 = fig.add_subplot(2, 1, 2)
-    ax1.set_title('position')
-    ax2.set_title('velocity')
-    while True:
-        ax1.cla()
-        ax2.cla()
-        pos.append((taro.axis1.encoder.pos_estimate) % 8192 - 4096)
-        vel.append(taro.axis1.encoder.vel_estimate)
-        ax1.plot(pos[-200:], color='blue')
-        ax2.plot(vel[-200:], color='red')
-        plt.pause(0.05)
- 
+def controller():
+    #おまじない　ノード名を宣言
+    rospy.init_node('controller', anonymous=True)
+    #Subscriberを作成．トピックを読み込む．
+    sub = rospy.Subscriber('command', String, callback)
+    #Publisherを作成('トピック名',型,サイズ)
+    pub = rospy.Publisher('status', Status, queue_size=1)
+    #ループの周期．
+    rate = rospy.Rate(10)
+
+    while not rospy.is_shutdown():
+        #ステータスデータを記録
+        array=Status() #msgに作成したステータスメッセージファイル Status.msg
+        array.pos = np.array(taro.axis1.encoder.pos_estimate % 8192 - 4096, dtype='f8')
+        array.vel = np.array(taro.axis1.encoder.vel_estimate, dtype='f8')
+        #データをパブリッシュ
+        pub.publish(array)
+        rate.sleep()
+    
 if __name__ == '__main__':
-    listener()
+    try:
+        controller()
+    except rospy.ROSInitException:
+        pass
