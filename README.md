@@ -31,19 +31,33 @@ catkin_make #catkinパッケージをビルド
 roscore 
 
 #別のターミナルを開く
-rosrun odrive_ros listener.py
+rosrun odrive_ros controller.py
 #起動と同時にODriveの初期設定をする．(1分ぐらい待つ)
 #太郎準備完了ってでたらOK
 
 #別のターミナルを開く
-rosrun odrive_ros talker.py
-#ここで指令値および，制御方法の切り替えを行う
+rosrun odrive_ros command.py
+#ここで指令値の入力および，制御方法の切り替えを行う
 ```
 4. コマンド
 - vel：速度制御に切替
 - pos：位置制御に切替
-- plot：位置と速度をプロット
 - stop：停止
+
+5. ROSでのデータの可視化
+- rqt_plot：x軸が時間，y軸がトピックの値の2次元プロット
+```
+#別のターミナルを開く
+rosrun rqt_plot rqt_plot
+```
+![rqt_plot](https://github.com/yuhi-sa/odrive_ros/blob/master/image.png?raw=true)
+- rqt_graph：現在動作しているノードの情報を表示
+```
+#別のターミナルを開く
+rosrun rqt_graph rqt_graph
+```
+![rqt_graph](https://raw.githubusercontent.com/yuhi-sa/odrive_ros/3377979e7967826d1cfbb0672be701337f0a19ac/rosgraph.svg)
+
 
 # 参考
 - [ODrive Documentation](https://docs.odriverobotics.com/)
