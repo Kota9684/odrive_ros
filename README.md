@@ -1,7 +1,9 @@
 # odrive_ros
 [ODrive motor](https://odriverobotics.com/)を動かすROSパッケージ．  
 位置制御と速度制御の切り替え，指令値の送信． 位置と速度のリアルタイムプロット．
-[![](https://img.youtube.com/vi/7yh7Y6mzf2o/0.jpg)](https://www.youtube.com/watch?v=7yh7Y6mzf2o)
+[![odrive_rosデモ動画](https://img.youtube.com/vi/7yh7Y6mzf2o/0.jpg)](https://www.youtube.com/watch?v=7yh7Y6mzf2o)
+[![odrive_ros(プチリモコン)デモ動画](http://img.youtube.com/vi/kdpVe5DpaZo/0.jpg)](http://www.youtube.com/watch?v=kdpVe5DpaZo "")
+
 
 # 環境
 - [Ubuntu 16.04 LTS](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/Ja#Ubuntu_16.04.2BMG4wwDCmMPMw7TD8MMk-)
@@ -44,7 +46,14 @@ rosrun odrive_ros command.py
 - pos：位置制御に切替
 - stop：停止
 
-5. ROSでのデータの可視化
+5. プチリモコン起動
+```
+#新しいターミナルを開く
+roslaunch rosbridge_server rosbridge_websocket.launch
+command.htmlを開く
+```
+
+6. ROSでのデータの可視化
 - rqt_plot：x軸が時間，y軸がトピックの値の2次元プロット
 ```
 #別のターミナルを開く
@@ -64,4 +73,5 @@ rosrun rqt_graph rqt_graph
 - [neomanic/odrive_ros](https://github.com/neomanic/odrive_ros)
 - [Raspberry Pi Mouse Simulator's Tutorial](https://raspimouse-sim-tutorial.gitbook.io/project/)
 - [ROS Melodic Moreniaを使ってPub/Subでサーボモータを動かす](https://tkrel.com/9301)
+- [ROS javascriptでメッセージを配信(rosbridge + rosjs)](https://symfoware.blog.fc2.com/blog-entry-2292.html)
 
